@@ -78,9 +78,9 @@ The supplied runtime configuration assumes a request-bound workload. For sustain
 
 ## Vercel deployment
 
-Vercel can deploy this application through its container runtime. Import the **`theneotic/clearcut-background-remover`** repository and leave the root directory at `/`. The repository includes `Dockerfile.vercel`, which tells Vercel to build the Node and Python/rembg application as one HTTP container.
+Vercel can deploy this application through its container runtime. Import the canonical **`theneotic/clearcut`** repository on the `main` branch and leave the root directory at `/`. The repository includes both `Dockerfile` and `Dockerfile.vercel`; Vercel’s container workflow uses `Dockerfile.vercel` to build the Node and Python/rembg application as one HTTP container.
 
-Do **not** import `theneotic/background-removex`; that is a separate media-routing application and is not Clearcut. During import, Vercel should detect the container build rather than create a generic static or Node-only deployment. Set the same required secrets through the Vercel project settings before promoting a deployment to production.
+Do **not** import `theneotic/background-removex`; that is a separate media-routing application and is not Clearcut. Do not force the Vite preset, `dist` output directory, or a standalone `npm run build` deployment. The checked-in `vercel.json` clears those stale static-site overrides so the root container definition can be selected. Set the required secrets through the Vercel project settings before promoting a deployment to production.
 
 When the Manus Forge storage variables are not present, Clearcut automatically returns the processed result as a short-lived inline image URL. This makes the primary upload, edit, download, local history, and batch-export flows work in a standalone Vercel container without Manus storage. Inline delivery is capped at 7 MB per processed file; configure object storage for larger results or durable server-side history.
 
