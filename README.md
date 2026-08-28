@@ -1,4 +1,23 @@
-# Clearcut Background Remover
+# Clearcut
+
+> **A responsive web application for removing image backgrounds and exporting transparent PNG cutouts.**
+
+| Project lens | Details |
+| --- | --- |
+| **Type** | Web application |
+| **Stack** | TypeScript · React · Vite |
+| **Status** | Actively maintained |
+
+## Overview
+
+A responsive web application for removing image backgrounds and exporting transparent PNG cutouts. This README keeps the project’s verified setup, usage, privacy, and implementation notes together in one place.
+
+## Repository Snapshot
+
+The top-level workspace currently includes `Dockerfile`, `Dockerfile.vercel`, `README.md`, `client/`, `components.json`, `drizzle/`, `drizzle.config.ts`, `package.json`, `patches/`, `pnpm-lock.yaml`, `requirements.txt`, `scripts/`. Review the project-specific sections below before installing dependencies, supplying configuration values, or running a build.
+
+
+---
 
 Clearcut is a public, responsive image background-removal web app. Visitors can drop a JPG, JPEG, PNG, or WebP image, review the original beside the cutout on a checkerboard transparency preview, and download the result as a transparent PNG.
 
