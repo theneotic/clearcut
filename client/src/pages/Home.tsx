@@ -5,6 +5,7 @@ import { PublicFooter } from "@/components/PublicFooter";
 import { PublicHeader } from "@/components/PublicHeader";
 import { appendHistoryItem, readProcessingHistory, renameHistoryItem, type ProcessingHistoryItem, writeProcessingHistory } from "@/lib/processingHistory";
 import { EXPORT_FORMATS, EXPORT_SIZE_PRESETS, normalizeHexColor, type ExportFormat, type ExportSizePreset } from "@/lib/exportOptions";
+import { parseApiResponse } from "@/lib/apiResponse";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -154,7 +155,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fileName: selectedFile.name, dataUrl }),
       });
-      const payload = (await response.json()) as { url?: string; downloadName?: string; error?: string };
+      const payload = await parseApiResponse<{ url?: string; downloadName?: string; error?: string }>(response);
       if (!response.ok || !payload.url) {
         throw new Error(payload.error || "We could not remove this background. Please try again.");
       }
@@ -280,7 +281,7 @@ export default function Home() {
           options: { cropZoom, cropX, cropY, shadowEnabled, shadowOpacity, shadowBlur, shadowOffsetY, backgroundColor, exportSize, exportFormat, exportQuality },
         }),
       });
-      const payload = (await response.json()) as { url?: string; downloadName?: string; error?: string };
+      const payload = await parseApiResponse<{ url?: string; downloadName?: string; error?: string }>(response);
       if (!response.ok || !payload.url) throw new Error(payload.error || "We could not apply those adjustments.");
       const nextName = payload.downloadName || "background-removed-refined.png";
       setResultUrl(payload.url);
