@@ -8,6 +8,16 @@ from PIL import Image, ImageOps
 from rembg import new_session, remove
 
 
+_session = None
+
+
+def get_session():
+    global _session
+    if _session is None:
+        _session = new_session("u2netp")
+    return _session
+
+
 def main() -> int:
     if len(sys.argv) != 3:
         print("Usage: remove_background.py <input> <output>", file=sys.stderr)
@@ -20,8 +30,7 @@ def main() -> int:
         with Image.open(input_path) as source:
             normalized = ImageOps.exif_transpose(source).convert("RGBA")
             # u2netp is the compact rembg model, suitable for a request-bound web runtime.
-            session = new_session("u2netp")
-            result = remove(normalized, session=session).convert("RGBA")
+            result = remove(normalized, session=get_session()).convert("RGBA")
             result.save(output_path, format="PNG", optimize=True)
     except Exception as error:
         print(f"Background removal failed: {error}", file=sys.stderr)

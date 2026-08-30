@@ -6,6 +6,7 @@ import { PublicHeader } from "@/components/PublicHeader";
 import { appendHistoryItem, readProcessingHistory, renameHistoryItem, type ProcessingHistoryItem, writeProcessingHistory } from "@/lib/processingHistory";
 import { EXPORT_FORMATS, EXPORT_SIZE_PRESETS, normalizeHexColor, type ExportFormat, type ExportSizePreset } from "@/lib/exportOptions";
 import { parseApiResponse } from "@/lib/apiResponse";
+import { HERO_AFTER_ARTWORK, HERO_BEFORE_ARTWORK } from "@/lib/heroArtwork";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -319,11 +320,11 @@ export default function Home() {
             <div className="absolute left-0 top-0 h-16 w-full border-b border-[#17201f] bg-[#f4f1e8]/85 px-5 py-5 font-mono text-[10px] uppercase tracking-[0.12em] sm:px-9">CUTTING ROOM / REAL PROOF</div>
             <div className="relative mt-16 grid h-[330px] max-w-[540px] grid-cols-[1.04fr_0.96fr] items-center gap-0 sm:mx-auto sm:h-[350px]">
               <figure className="relative z-10 h-[82%] overflow-hidden border border-[#17201f] bg-[#d7e3df] shadow-[10px_10px_0_#17201f]">
-                <img src="/manus-storage/clearcut-demo-original_909b374b.jpg" alt="Original portrait with blue background" className="size-full object-cover object-center" />
+                <img src={HERO_BEFORE_ARTWORK} alt="Original portrait with blue background" className="size-full object-cover object-center" />
                 <figcaption className="absolute bottom-0 left-0 bg-[#f4f1e8] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em]">Before / full frame</figcaption>
               </figure>
               <figure className="checkerboard relative z-20 -ml-4 h-full border border-[#17201f] bg-[#f4f1e8] shadow-[10px_10px_0_#e84d31] sm:-ml-8">
-                <img src="/manus-storage/clearcut-demo-cutout_de20bc3c.png" alt="Portrait after background removal on a transparency grid" className="size-full object-contain p-3" />
+                <img src={HERO_AFTER_ARTWORK} alt="Portrait after background removal on a transparency grid" className="size-full object-contain p-3" />
                 <figcaption className="absolute bottom-0 right-0 bg-[#e84d31] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em]">After / alpha</figcaption>
               </figure>
               <span className="absolute left-[45%] top-1/2 z-30 grid size-9 -translate-y-1/2 place-items-center border border-[#17201f] bg-[#f4f1e8] text-[#17201f]"><Scissors className="size-4" /></span>
