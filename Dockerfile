@@ -14,6 +14,7 @@ RUN python3 -m venv /opt/rembg \
     && /opt/rembg/bin/pip install --no-cache-dir -r requirements.txt
 
 ENV PATH="/opt/rembg/bin:${PATH}" \
+    PYTHON_BIN=/opt/rembg/bin/python \
     U2NET_HOME=/opt/rembg-models
 
 # Cache the compact rembg model in the image instead of downloading it on a visitor's first request.

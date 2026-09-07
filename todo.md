@@ -16,3 +16,5 @@
 - [x] Fix production `Unexpected token '<'` JSON parsing by adding safe HTML/malformed-response handling for Clearcut API requests; 28 tests, TypeScript checks, and the production build pass.
 - [x] Improve the production background-removal runtime by caching the u2netp rembg session; the supplied JPG produced a non-empty PNG locally and 28 tests passed.
 - [x] Replace the broken hero before/after storage URLs with deployment-safe inline SVG artwork and verify the mobile homepage visually.
+- [x] Update the canonical repository with the production background-removal fix. GitHub main is e11b875be965b7522fbfca7d6934c4bddf93f85c under theneotic; fresh Vercel deployment attempted but blocked by a 403 project-permission error.
+- [ ] Identify and replace the stale live Background Remover Web deployment shown in the screenshot with the corrected canonical Clearcut deployment.
