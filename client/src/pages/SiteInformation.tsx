@@ -8,78 +8,42 @@ type InformationPage = "about" | "privacy" | "terms" | "contact";
 
 const informationCopy = {
   about: {
-    label: "About Clearcut",
-    title: "A deterministic tool for clean image separation.",
-    intro: "Clearcut is an engineering-grade web utility designed to isolate subjects from image backgrounds and produce export-ready assets. The pipeline provides transparent feedback at every step: upload an image, inspect the alpha channel, apply fine-tuning adjustments, and export in your required format.",
+    label: "About / Clearcut",
+    title: "A practical desk for clean image separation.",
+    intro: "Clearcut is a focused web utility for turning a selected subject into an export-ready image. It keeps the process visible: bring an image in, inspect the cutout, make a few production adjustments, and save the format you need.",
     sections: [
-      ["What it is", "A client-refined image background-removal workflow featuring zoom/pan framing, dynamic drop shadows, background mattes, custom export dimensions, multi-format encoding, and local session history."],
-      ["What it is not", "Clearcut is not a social network, generative hallucination gallery, or an opaque black-box service. Edge quality is determined by contrast, lighting, and subject boundaries in the uploaded photo."],
-      ["How to use it", "Upload any JPG, PNG, or WebP photo, review the segmented cutout on the dark transparency grid, fine-tune framing or shadows if desired, then download the lossless PNG or batch ZIP archive."],
+      ["What it is", "A browser-based image background-removal workflow with crop framing, shadow, solid backgrounds, size presets, multiple export formats, and a local download history."],
+      ["What it is not", "Clearcut does not position itself as a social platform, a content library, or a promise of perfect results for every image. Edge quality depends on the uploaded image, including contrast, lighting, hair, and overlapping subjects."],
+      ["How to use it", "Start at the tool, upload a JPG, PNG, or WebP image, review the cutout, adjust the export settings, then download a file or add saved results to a local batch ZIP."],
     ],
   },
   privacy: {
-    label: "Privacy Policy",
-    title: "Plain language about your data and images.",
-    intro: "This notice explains how Clearcut processes images and handles browser data. We believe privacy should be simple, transparent, and verifiable.",
+    label: "Privacy / Clearcut",
+    title: "Plain language about your images and browser data.",
+    intro: "This notice explains the information the Clearcut workflow uses, why it is used, and the choices available to visitors. It is written for the current version of this website and should be reviewed before production use in a jurisdiction with specific legal requirements.",
     sections: [
-      ["Image processing", "Uploaded images are streamed to an isolated temporary worker solely for background removal and export operations. Temporary files are pruned automatically after processing. Downloads are served via secure temporary tokens."],
-      ["Local history", "Your recent cutouts and export names are stored exclusively within your browser's local storage (`localStorage`). No session history or personal browsing records are sent to external analytics."],
-      ["Zero telemetry", "Clearcut operates without third-party tracking beacons, cross-site profiling cookies, or invasive tracking scripts. We do not sell, license, or monetize any user content."],
-      ["Contact inquiries", "When sending a message via our contact form, your name, email, topic, and message content are transmitted securely to the project owner to answer your inquiry."],
+      ["Image processing", "An uploaded image is sent to the application server for background removal and optional export adjustments. The server uses a temporary working area during processing. Finished exports are stored by the application’s configured file-storage service so the website can provide a download link."],
+      ["Local history", "Recent cutout labels and download references are retained in your browser’s local storage. This lets the history panel re-display your recent work on that device. You can clear browser storage through your browser settings."],
+      ["Technical information", "The website may receive standard technical request information and platform analytics data used to operate, secure, and understand the service. Do not upload confidential, regulated, or sensitive images unless you have assessed the relevant storage and processing requirements."],
+      ["Contact messages", "When you send the contact form, your name, email address, selected topic, and message are sent to the project owner through the configured notification service so they can respond."],
     ],
   },
   terms: {
-    label: "Terms of Service",
-    title: "Fair terms for responsible tool usage.",
-    intro: "These terms govern the use of the Clearcut website. By uploading images or using our export features, you agree to these standard operating conditions.",
+    label: "Terms / Clearcut",
+    title: "Use the tool with rights, care, and realistic expectations.",
+    intro: "These terms govern use of the current Clearcut website. By uploading an image or using an export feature, you agree to use the service lawfully and in line with the rights attached to the content you submit.",
     sections: [
-      ["Content ownership", "You retain full ownership and copyrights to any images you upload. You are responsible for having lawful rights to process and export the content you submit."],
-      ["Acceptable use", "You agree not to use Clearcut for unlawful, infringing, abusive, or malicious purposes, nor to attempt to reverse-engineer or overwhelm the processing infrastructure."],
-      ["Service availability", "Background separation and export utilities are automated. While we aim for high uptime and precision, the tool is provided on an as-is basis without warranties of uninterrupted availability."],
-      ["Support & contact", "For questions regarding these terms or feature requests, submit a note through our contact page."],
+      ["Your content", "You are responsible for ensuring that you have permission to upload, process, modify, and export every image you use. Do not use the tool for unlawful, infringing, abusive, or privacy-violating activity."],
+      ["Service limits", "Background removal and other adjustments are automated processes. Results can vary, and the service is provided without a guarantee that every cutout or export will meet a particular professional, commercial, or technical standard."],
+      ["Availability", "The tool, storage links, formats, presets, and batch features may change, be limited, or be unavailable from time to time. Keep copies of any files that matter to you; download links and browser history are not a permanent archive."],
+      ["Questions", "For questions about these terms or the site, use the contact page. For privacy-specific questions, select the Privacy topic in the contact form."],
     ],
   },
 } as const;
 
 function InformationLayout({ page }: { page: Exclude<InformationPage, "contact"> }) {
   const content = informationCopy[page];
-  return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 selection:bg-sky-500/30 selection:text-sky-200">
-      <PublicHeader />
-      <main className="container border-x border-slate-800/80 py-12 sm:py-16">
-        <section className="border-b border-slate-800 pb-10">
-          <div className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-sky-400">
-            <span>{content.label}</span>
-          </div>
-          <h1 className="mt-5 text-3xl sm:text-5xl font-bold text-white tracking-tight">
-            {content.title}
-          </h1>
-          <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400">
-            {content.intro}
-          </p>
-        </section>
-
-        <section className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {content.sections.map(([heading, body], index) => (
-            <article key={heading} className="rounded-xl border border-slate-800 bg-[#101623] p-6 flex flex-col justify-between">
-              <div>
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-                  Section 0{index + 1}
-                </span>
-                <h2 className="mt-4 text-xl font-bold text-white tracking-tight">
-                  {heading}
-                </h2>
-                <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                  {body}
-                </p>
-              </div>
-            </article>
-          ))}
-        </section>
-      </main>
-      <PublicFooter />
-    </div>
-  );
+  return <div className="min-h-screen bg-[#f4f1e8] text-[#17201f]"><PublicHeader /><main className="container border-x border-[#17201f]"><section className="grid gap-8 border-b border-[#17201f] px-1 py-12 sm:px-7 sm:py-20 lg:grid-cols-[0.65fr_1.35fr]"><div><p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#e84d31]">{content.label}</p><h1 className="mt-6 text-4xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-6xl">{content.title}</h1></div><p className="max-w-2xl self-end text-lg leading-8 text-[#43504c]">{content.intro}</p></section><section className="grid border-l border-[#17201f] sm:grid-cols-2">{content.sections.map(([heading, body], index) => <article key={heading} className="border-b border-r border-[#17201f] px-5 py-7 sm:p-8"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#e84d31]">0{index + 1}</p><h2 className="mt-10 text-2xl font-semibold tracking-[-0.055em]">{heading}</h2><p className="mt-4 max-w-prose text-sm leading-7 text-[#43504c]">{body}</p></article>)}</section></main><PublicFooter /></div>;
 }
 
 export function AboutPage() { return <InformationLayout page="about" />; }
@@ -93,157 +57,14 @@ export function ContactPage() {
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
   const [notice, setNotice] = useState("");
-
   const contact = trpc.contact.submit.useMutation({
-    onSuccess: () => {
-      setNotice("Message delivered successfully. We will review and respond shortly.");
-      setMessage("");
-    },
-    onError: error => setNotice(error.message || "Message delivery is temporarily unavailable. Please try again later."),
+    onSuccess: () => { setNotice("Message sent. The project owner has been notified."); setMessage(""); },
+    onError: error => setNotice(error.message || "Message delivery is temporarily unavailable."),
   });
-
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
     setNotice("");
     contact.mutate({ name, email, topic, message, website });
   };
-
-  return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 selection:bg-sky-500/30 selection:text-sky-200">
-      <PublicHeader />
-      <main className="container border-x border-slate-800/80 py-12 sm:py-16">
-        <section className="border-b border-slate-800 pb-10">
-          <div className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-sky-400">
-            <span>Contact Studio</span>
-          </div>
-          <h1 className="mt-5 text-3xl sm:text-5xl font-bold text-white tracking-tight">
-            Send a direct note.
-          </h1>
-          <p className="mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-slate-400">
-            Have a question, feedback on cutout accuracy, or a partnership inquiry? Reach out directly using the form below.
-          </p>
-        </section>
-
-        <section className="mt-10 grid gap-8 lg:grid-cols-[0.4fr_0.6fr]">
-          <aside className="rounded-xl border border-slate-800 bg-[#101623] p-6 space-y-4">
-            <span className="font-mono text-xs uppercase tracking-wider text-sky-400 block">
-              Inquiry Guidelines
-            </span>
-            <p className="text-xs leading-relaxed text-slate-400">
-              For technical inquiries regarding a specific cutout, mention the input file type, image dimensions, and desired export preset.
-            </p>
-            <div className="border-t border-slate-800 pt-4 space-y-2 font-mono text-xs text-slate-400">
-              <div className="flex items-center gap-2">
-                <Check className="size-3.5 text-emerald-400" />
-                <span>Encrypted transmission</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="size-3.5 text-emerald-400" />
-                <span>Zero spam policy</span>
-              </div>
-            </div>
-          </aside>
-
-          <div className="rounded-xl border border-slate-800 bg-[#101623] p-6 sm:p-8">
-            <form onSubmit={submit} className="space-y-5">
-              <input
-                className="hidden"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                value={website}
-                onChange={event => setWebsite(event.target.value)}
-              />
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
-                    Name
-                  </label>
-                  <input
-                    required
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                    placeholder="Your name"
-                    className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-sky-400 transition"
-                  />
-                </div>
-                <div>
-                  <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    required
-                    type="email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                    placeholder="you@domain.com"
-                    className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-sky-400 transition"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
-                  Topic
-                </label>
-                <select
-                  value={topic}
-                  onChange={event => setTopic(event.target.value as typeof topic)}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-sm text-white outline-none focus:border-sky-400 transition"
-                >
-                  <option value="general">General Inquiries</option>
-                  <option value="support">Technical Support</option>
-                  <option value="privacy">Privacy & Data Handling</option>
-                  <option value="partnership">Partnership & API Access</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">
-                  Message
-                </label>
-                <textarea
-                  required
-                  value={message}
-                  onChange={event => setMessage(event.target.value)}
-                  minLength={10}
-                  rows={5}
-                  placeholder="How can we assist you?"
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900 p-4 text-sm text-white placeholder-slate-500 outline-none focus:border-sky-400 transition"
-                />
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button
-                  type="submit"
-                  disabled={contact.isPending}
-                  className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 disabled:opacity-60 shadow-md shadow-sky-500/10"
-                >
-                  {contact.isPending ? (
-                    <>
-                      <Loader2 className="size-3.5 animate-spin" />
-                      <span>Sending Message...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Send Message</span>
-                      <ArrowRight className="size-3.5" />
-                    </>
-                  )}
-                </button>
-
-                {notice && (
-                  <p className={`text-xs font-mono ${contact.isError ? "text-rose-400" : "text-emerald-400"}`} role="status">
-                    {notice}
-                  </p>
-                )}
-              </div>
-            </form>
-          </div>
-        </section>
-      </main>
-      <PublicFooter />
-    </div>
-  );
+  return <div className="min-h-screen bg-[#f4f1e8] text-[#17201f]"><PublicHeader /><main className="container border-x border-[#17201f]"><section className="grid gap-8 border-b border-[#17201f] px-1 py-12 sm:px-7 sm:py-20 lg:grid-cols-[0.65fr_1.35fr]"><div><p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#e84d31]">Contact / Clearcut</p><h1 className="mt-6 text-4xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-6xl">Send a clear note.</h1></div><p className="max-w-xl self-end text-lg leading-8 text-[#43504c]">Use this form for product questions, technical support, privacy requests, or a relevant partnership inquiry. Your message goes to the project owner through the configured support channel.</p></section><section className="grid lg:grid-cols-[0.58fr_1.42fr]"><aside className="border-b border-[#17201f] px-5 py-8 lg:border-b-0 lg:border-r sm:px-7"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#e84d31]">What to include</p><p className="mt-5 text-sm leading-7 text-[#43504c]">For an export issue, mention the input format, selected export settings, and what happened. Do not include passwords, API keys, payment details, or confidential image content in a message.</p></aside><form onSubmit={submit} className="space-y-5 px-5 py-8 sm:p-10"><input className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" value={website} onChange={event => setWebsite(event.target.value)} /><div className="grid gap-5 sm:grid-cols-2"><label className="block font-mono text-[10px] uppercase tracking-[0.1em]">Name<input required value={name} onChange={event => setName(event.target.value)} className="mt-2 w-full border-b border-[#17201f] bg-transparent px-0 py-3 text-base outline-none focus:border-[#e84d31]" /></label><label className="block font-mono text-[10px] uppercase tracking-[0.1em]">Email<input required type="email" value={email} onChange={event => setEmail(event.target.value)} className="mt-2 w-full border-b border-[#17201f] bg-transparent px-0 py-3 text-base outline-none focus:border-[#e84d31]" /></label></div><label className="block font-mono text-[10px] uppercase tracking-[0.1em]">Topic<select value={topic} onChange={event => setTopic(event.target.value as typeof topic)} className="mt-2 w-full border-b border-[#17201f] bg-transparent px-0 py-3 text-base outline-none focus:border-[#e84d31]"><option value="general">General</option><option value="support">Support</option><option value="privacy">Privacy</option><option value="partnership">Partnership</option></select></label><label className="block font-mono text-[10px] uppercase tracking-[0.1em]">Message<textarea required value={message} onChange={event => setMessage(event.target.value)} minLength={10} rows={6} className="mt-2 w-full resize-y border border-[#17201f] bg-transparent p-3 text-base outline-none focus:border-[#e84d31]" /></label><div className="flex flex-wrap items-center gap-4"><button disabled={contact.isPending} className="inline-flex items-center gap-3 bg-[#17201f] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.11em] text-[#f4f1e8] transition hover:bg-[#e84d31] disabled:opacity-60">{contact.isPending ? <><Loader2 className="size-3 animate-spin" /> Sending</> : <>Send message <ArrowRight className="size-3" /></>}</button>{notice && <p className={`text-sm ${contact.isError ? "text-[#b33f29]" : "text-[#43504c]"}`} role="status">{notice}</p>}</div></form></section></main><PublicFooter /></div>;
 }

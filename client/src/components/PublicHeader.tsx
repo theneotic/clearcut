@@ -1,44 +1,22 @@
-import { ArrowRight, Scissors } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 
 export function PublicHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-[#090d16]/90 backdrop-blur-md">
-      <div className="container flex h-16 items-center justify-between gap-4">
-        <a href="/" className="group flex items-center gap-3" aria-label="Clearcut Home">
-          <div className="grid size-9 place-items-center rounded-xl border border-slate-800 bg-slate-900 text-sky-400 shadow-sm transition group-hover:border-sky-500/50">
-            <Scissors className="size-4 rotate-[-45deg]" />
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold tracking-tight text-white">
-              Clearcut <span className="font-semibold text-sky-400">Studio</span>
-            </span>
-            <span className="hidden rounded-md border border-slate-700/80 bg-slate-800/60 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-sky-400 sm:inline">
-              Alpha Engine
-            </span>
-          </div>
+    <header className="border-b border-[#17201f] bg-[#f4f1e8]">
+      <div className="container flex h-[74px] items-center justify-between gap-5">
+        <a href="/" className="flex items-center gap-3" aria-label="Clearcut home">
+          <span className="grid size-8 place-items-center bg-[#e84d31] text-sm font-bold text-[#17201f]">C</span>
+          <span className="text-lg font-bold tracking-[-0.06em]">clearcut</span>
+          <span className="hidden font-mono text-[10px] tracking-[0.12em] text-[#63706b] sm:inline">/ IMAGE UTILITY</span>
         </a>
-
-        <nav className="hidden items-center gap-6 font-mono text-xs uppercase tracking-wider text-slate-400 md:flex" aria-label="Primary navigation">
-          <a className="transition hover:text-white" href="/#studio">Studio</a>
-          <a className="transition hover:text-white" href="/#how-it-works">Method</a>
-          <a className="transition hover:text-white" href="/about">About</a>
-          <a className="transition hover:text-white" href="/contact">Contact</a>
+        <nav className="hidden items-center gap-6 font-mono text-[10px] uppercase tracking-[0.12em] lg:flex" aria-label="Primary navigation">
+          <a className="hover:text-[#e84d31]" href="/#studio">Tool</a>
+          <a className="hover:text-[#e84d31]" href="/#how-it-works">Method</a>
+          <a className="hover:text-[#e84d31]" href="/about">About</a>
+          <a className="hover:text-[#e84d31]" href="/contact">Contact</a>
         </nav>
-
-        <div className="flex items-center gap-3">
-          <div className="hidden items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-1.5 font-mono text-[11px] text-slate-300 sm:flex">
-            <span className="size-2 rounded-full bg-emerald-400"></span>
-            <span>Online</span>
-          </div>
-          <a
-            href="/#studio"
-            className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 shadow-md shadow-sky-500/10"
-          >
-            Launch Studio <ArrowRight className="size-3.5" />
-          </a>
-        </div>
+        <a href="/#studio" className="group flex items-center gap-3 border-b border-[#17201f] pb-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] transition hover:border-[#e84d31] hover:text-[#e84d31]">Open tool <ArrowDownRight className="size-3 transition-transform group-hover:translate-y-0.5" /></a>
       </div>
     </header>
   );
 }
-

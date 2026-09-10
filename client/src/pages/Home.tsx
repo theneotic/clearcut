@@ -26,12 +26,12 @@ import type { ChangeEvent, DragEvent } from "react";
 type ToolStatus = "idle" | "ready" | "processing" | "success" | "error";
 
 const BACKGROUND_PRESETS = [
-  { value: "transparent", label: "Transparent", swatch: "checkerboard" },
-  { value: "#090d16", label: "Slate Canvas", swatch: "#090d16" },
-  { value: "#101623", label: "Dark Card", swatch: "#101623" },
-  { value: "#ffffff", label: "Pure White", swatch: "#ffffff" },
-  { value: "#0284c7", label: "Sky Blue", swatch: "#0284c7" },
-  { value: "#0f172a", label: "Deep Navy", swatch: "#0f172a" },
+  { value: "transparent", label: "Clear", swatch: "checkerboard" },
+  { value: "#f4f1e8", label: "Paper", swatch: "#f4f1e8" },
+  { value: "#ffffff", label: "White", swatch: "#ffffff" },
+  { value: "#d9e9df", label: "Mint", swatch: "#d9e9df" },
+  { value: "#e84d31", label: "Signal", swatch: "#e84d31" },
+  { value: "#17201f", label: "Ink", swatch: "#17201f" },
 ] as const;
 
 function formatBytes(bytes: number) {
@@ -196,7 +196,7 @@ export default function Home() {
   const applyCustomHex = () => {
     const normalized = normalizeHexColor(customHex);
     if (!normalized) {
-      setHexError("Enter a 3- or 6-digit hex value, for example #38bdf8.");
+      setHexError("Enter a 3- or 6-digit hex value, for example #e84d31.");
       return;
     }
     setBackgroundColor(normalized);
@@ -297,740 +297,153 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="min-h-screen bg-[#f4f1e8] text-[#17201f]">
       <PublicHeader />
 
       <main id="top">
-        {/* Hero Section */}
-        <section className="container grid min-h-[580px] grid-cols-1 border-x border-slate-800/80 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="flex flex-col justify-between border-b border-slate-800/80 px-2 pb-8 pt-10 sm:px-8 sm:pb-12 sm:pt-16 lg:border-b-0 lg:border-r">
+        <section className="container grid min-h-[610px] grid-cols-1 border-x border-[#17201f] lg:grid-cols-[1.06fr_0.94fr]">
+          <div className="flex flex-col justify-between border-b border-[#17201f] px-1 pb-8 pt-9 sm:px-7 sm:pb-10 sm:pt-14 lg:border-b-0 lg:border-r">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-sky-400">
-                <span className="size-1.5 rounded-full bg-sky-400"></span>
-                <span>Automated Subject Isolation</span>
-              </div>
-              <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05]">
-                Cut away the noise.<br />
-                <span className="text-sky-400">Keep the subject.</span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#e84d31]">A background-removal desk / 01</p>
+              <h1 className="font-display mt-8 max-w-[650px] text-[clamp(3.7rem,8vw,7.7rem)] font-semibold leading-[0.83] tracking-[-0.085em] text-[#17201f]">
+                Cut away<br />the ordinary.
               </h1>
-              <p className="mt-6 max-w-lg text-base sm:text-lg leading-relaxed text-slate-400">
-                An engineering-grade utility to separate subjects from complex backgrounds. Import any photo, inspect the alpha channel, and export lossless transparent PNGs in seconds.
-              </p>
+              <p className="mt-10 max-w-md text-base leading-7 text-[#43504c] sm:text-lg">A deliberate, no-friction way to separate your subject from its surroundings. Bring the image. Leave with transparent pixels.</p>
             </div>
-            <div className="mt-10 grid gap-4 border-t border-slate-800/80 pt-6 sm:grid-cols-[1fr_auto] sm:items-end">
-              <div>
-                <p className="font-mono text-[11px] uppercase tracking-wider text-slate-400">
-                  Supported Inputs: JPG / PNG / WebP
-                </p>
-                <p className="font-mono text-[10px] text-slate-400 mt-1">
-                  Full Alpha Transparency / Zero Compression Loss
-                </p>
-              </div>
-              <a
-                href="#studio"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 shadow-lg shadow-sky-500/10"
-              >
-                Open Studio <ArrowRight className="size-3.5" />
-              </a>
+            <div className="mt-10 grid gap-4 border-t border-[#17201f] pt-4 sm:grid-cols-[1fr_auto] sm:items-end">
+              <p className="max-w-xs font-mono text-[10px] leading-5 uppercase tracking-[0.11em] text-[#52605b]">JPG / PNG / WEBP<br />TRANSPARENT PNG ON EXIT</p>
+              <a href="#studio" className="group inline-flex items-center justify-between bg-[#17201f] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.12em] text-[#f4f1e8] transition hover:bg-[#e84d31] sm:min-w-52">Start a cutout <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" /></a>
             </div>
           </div>
 
-          <div className="cut-grid relative min-h-[420px] overflow-hidden p-6 sm:p-10 flex flex-col justify-between">
-            <div className="flex items-center justify-between border-b border-slate-800/80 bg-[#101623]/80 backdrop-blur-sm px-4 py-2.5 rounded-xl text-xs font-mono text-slate-300">
-              <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-sky-400"></span>
-                Live Edge Preview
-              </span>
-              <span className="text-slate-400">00:02 Average Processing</span>
-            </div>
-
-            <div className="relative my-auto grid h-[320px] max-w-[500px] grid-cols-[1.05fr_0.95fr] items-center gap-0 mx-auto w-full">
-              <figure className="relative z-10 h-[85%] overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-2xl">
-                <img src={HERO_BEFORE_ARTWORK} alt="Original portrait with studio backdrop" className="size-full object-cover object-center" />
-                <figcaption className="absolute bottom-2 left-2 rounded-md bg-slate-950/80 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-slate-300 border border-slate-800">
-                  Original
-                </figcaption>
+          <div className="cut-grid relative min-h-[440px] overflow-hidden px-5 py-6 sm:p-9">
+            <div className="absolute left-0 top-0 h-16 w-full border-b border-[#17201f] bg-[#f4f1e8]/85 px-5 py-5 font-mono text-[10px] uppercase tracking-[0.12em] sm:px-9">CUTTING ROOM / REAL PROOF</div>
+            <div className="relative mt-16 grid h-[330px] max-w-[540px] grid-cols-[1.04fr_0.96fr] items-center gap-0 sm:mx-auto sm:h-[350px]">
+              <figure className="relative z-10 h-[82%] overflow-hidden border border-[#17201f] bg-[#d7e3df] shadow-[10px_10px_0_#17201f]">
+                <img src={HERO_BEFORE_ARTWORK} alt="Original portrait with blue background" className="size-full object-cover object-center" />
+                <figcaption className="absolute bottom-0 left-0 bg-[#f4f1e8] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em]">Before / full frame</figcaption>
               </figure>
-              <figure className="checkerboard relative z-20 -ml-6 h-full overflow-hidden rounded-xl border border-sky-500/50 bg-[#090d16] shadow-2xl shadow-sky-500/10">
-                <img src={HERO_AFTER_ARTWORK} alt="Cutout on dark transparency grid" className="size-full object-contain p-3" />
-                <figcaption className="absolute bottom-2 right-2 rounded-md bg-sky-500 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-slate-950 font-bold">
-                  Alpha Cutout
-                </figcaption>
+              <figure className="checkerboard relative z-20 -ml-4 h-full border border-[#17201f] bg-[#f4f1e8] shadow-[10px_10px_0_#e84d31] sm:-ml-8">
+                <img src={HERO_AFTER_ARTWORK} alt="Portrait after background removal on a transparency grid" className="size-full object-contain p-3" />
+                <figcaption className="absolute bottom-0 right-0 bg-[#e84d31] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em]">After / alpha</figcaption>
               </figure>
-              <span className="absolute left-[46%] top-1/2 z-30 grid size-10 -translate-y-1/2 place-items-center rounded-xl border border-slate-700 bg-slate-900 text-sky-400 shadow-xl">
-                <Scissors className="size-4.5" />
-              </span>
+              <span className="absolute left-[45%] top-1/2 z-30 grid size-9 -translate-y-1/2 place-items-center border border-[#17201f] bg-[#f4f1e8] text-[#17201f]"><Scissors className="size-4" /></span>
             </div>
-
-            <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 font-mono text-[11px] text-slate-400">
-              <span>Foreground: 100% retained</span>
-              <span>Output: Clean Alpha Matte</span>
+            <div className="absolute bottom-7 left-5 right-5 flex items-end justify-between border-t border-[#17201f] pt-3 font-mono text-[10px] uppercase tracking-[0.11em] sm:bottom-9 sm:left-9 sm:right-9">
+              <span>Foreground / retained</span><span>Actual cutout / 00:03</span>
             </div>
           </div>
         </section>
 
-        {/* Studio Workspace Section */}
-        <section id="studio" className="border-y border-slate-800/80 bg-[#0b101c] py-12 text-slate-100">
-          <div className="container grid gap-8 border-x border-slate-800/80 lg:grid-cols-[0.32fr_0.68fr] lg:gap-10">
+        <section id="studio" className="border-y border-[#17201f] bg-[#17201f] py-1 text-[#f4f1e8]">
+          <div className="container grid gap-8 border-x border-[#60716a] py-8 sm:py-12 lg:grid-cols-[0.36fr_0.64fr] lg:gap-12">
             <div className="flex flex-col justify-between">
               <div>
-                <div className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-sky-400">
-                  <SlidersHorizontal className="size-3.5" />
-                  <span>Studio Console</span>
-                </div>
-                <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  Upload Image.<br />
-                  <span className="text-slate-400">Extract Subject.</span>
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-slate-400">
-                  Select or drag an image into the studio. Our automated segmentation engine isolates the foreground subject and preserves hair, transparent fabric, and edge detail.
-                </p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#ef745e]">The tool / 02</p>
+                <h2 className="font-display mt-5 max-w-sm text-4xl font-semibold leading-[0.92] tracking-[-0.07em] sm:text-5xl">Drop the subject.<br /><span className="text-[#9fada7]">Keep the focus.</span></h2>
               </div>
-
-              <div className="mt-8 rounded-xl border border-slate-800 bg-[#101623] p-4 text-xs font-mono text-slate-400 space-y-2.5">
-                <div className="flex justify-between pb-2 border-b border-slate-800">
-                  <span>Max File Size</span>
-                  <span className="text-slate-200">8 MB</span>
-                </div>
-                <div className="flex justify-between pb-2 border-b border-slate-800">
-                  <span>Accepted Formats</span>
-                  <span className="text-slate-200">JPG, PNG, WebP</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Processing Location</span>
-                  <span className="text-slate-200">Local Temporary Buffer</span>
-                </div>
-              </div>
+              <p className="mt-10 max-w-xs font-mono text-[10px] leading-5 uppercase tracking-[0.1em] text-[#9fada7]">ONE IMAGE AT A TIME<br />UP TO 8 MB / ALL WORK HAPPENS SERVER-SIDE</p>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-[#101623] p-4 sm:p-6 shadow-2xl relative">
-              <input
-                ref={inputRef}
-                id="image-file"
-                className="sr-only"
-                type="file"
-                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                onChange={handleInput}
-              />
-
-              {/* Upload Dropzone */}
+            <div className="border border-[#8a9992] p-3 sm:p-4">
+              <input ref={inputRef} id="image-file" className="sr-only" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" onChange={handleInput} />
               {(status === "idle" || status === "error") && (
                 <div
-                  className={`relative grid min-h-[360px] place-items-center rounded-xl border-2 border-dashed p-6 text-center transition ${
-                    isDragging
-                      ? "border-sky-400 bg-sky-500/5"
-                      : status === "error"
-                      ? "border-rose-500/50 bg-rose-500/5"
-                      : "border-slate-800 bg-slate-900/40 hover:border-slate-700"
-                  }`}
+                  className={`relative grid min-h-[350px] place-items-center overflow-hidden border px-6 text-center transition ${isDragging ? "border-[#ef745e] bg-[#2c3c37]" : "border-[#60716a] bg-[#202b28]"}`}
                   onDragEnter={event => { event.preventDefault(); setIsDragging(true); }}
                   onDragOver={event => { event.preventDefault(); setIsDragging(true); }}
                   onDragLeave={event => { event.preventDefault(); setIsDragging(false); }}
                   onDrop={handleDrop}
                 >
+                  <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden font-display text-[clamp(6rem,20vw,13rem)] font-bold leading-none tracking-[-0.12em] text-white/[0.035]">DROP</div>
                   <div className="relative max-w-sm">
-                    <div className={`mx-auto grid size-14 place-items-center rounded-2xl border ${status === "error" ? "border-rose-500/40 bg-rose-500/10 text-rose-400" : "border-slate-700 bg-slate-900 text-sky-400"}`}>
-                      {status === "error" ? <CircleAlert className="size-6" /> : <ImagePlus className="size-6" />}
-                    </div>
-                    <h3 className="mt-5 text-xl font-semibold text-white tracking-tight">
-                      {status === "error" ? "Upload Failed" : "Drop your image here"}
-                    </h3>
-                    <p className={`mt-2 text-xs leading-relaxed ${status === "error" ? "text-rose-300" : "text-slate-400"}`}>
-                      {status === "error" ? error : "Drag & drop your file or click the button below. JPG, PNG, and WebP supported up to 8 MB."}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => inputRef.current?.click()}
-                      className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-slate-100 transition hover:bg-slate-800 hover:border-sky-500"
-                    >
-                      <Upload className="size-3.5 text-sky-400" /> Select Image
-                    </button>
+                    <span className={`mx-auto grid size-12 place-items-center border ${status === "error" ? "border-[#ef745e] text-[#ef745e]" : "border-[#afc5bb] text-[#afc5bb]"}`}>{status === "error" ? <CircleAlert className="size-5" /> : <ImagePlus className="size-5" />}</span>
+                    <h3 className="font-display mt-6 text-3xl font-semibold tracking-[-0.06em]">{status === "error" ? "That one didn’t clear." : "Place an image here."}</h3>
+                    <p className={`mt-3 text-sm leading-6 ${status === "error" ? "text-[#ef8d7b]" : "text-[#aebbb5]"}`}>{status === "error" ? error : "Drag it in, or choose it from your device. JPG, PNG and WebP are ready to cut."}</p>
+                    <button type="button" onClick={() => inputRef.current?.click()} className="mt-7 inline-flex items-center gap-3 border border-[#f4f1e8] px-4 py-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] transition hover:border-[#ef745e] hover:bg-[#ef745e] hover:text-[#17201f]"><Upload className="size-3" /> Select image</button>
                   </div>
                 </div>
               )}
 
-              {/* Ready / Processing Stage */}
               {status !== "idle" && status !== "error" && previewUrl && (
-                <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_240px]">
-                  <div className="relative min-h-[340px] overflow-hidden rounded-xl border border-slate-800 bg-[#090d16] flex items-center justify-center p-4">
-                    <img src={previewUrl} alt="Selected source image" className="max-h-[320px] max-w-full object-contain" />
-                    <span className="absolute left-3 top-3 rounded-md bg-slate-900/90 border border-slate-800 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-slate-300">
-                      Original: {selectedFile && formatBytes(selectedFile.size)}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={reset}
-                      className="absolute right-3 top-3 grid size-8 place-items-center rounded-lg border border-slate-700 bg-slate-900 text-slate-300 hover:text-white hover:border-slate-600 transition"
-                      aria-label="Choose another image"
-                    >
-                      <RotateCcw className="size-4" />
-                    </button>
+                <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_215px]">
+                  <div className="relative min-h-[345px] overflow-hidden bg-[#d8ded7]">
+                    <img src={previewUrl} alt="Selected source image" className="absolute inset-0 size-full object-contain p-5" />
+                    <span className="absolute left-3 top-3 bg-[#f4f1e8] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#17201f]">Original / {selectedFile && formatBytes(selectedFile.size)}</span>
+                    <button type="button" onClick={reset} className="absolute right-3 top-3 grid size-8 place-items-center bg-[#17201f] text-[#f4f1e8] transition hover:bg-[#e84d31]" aria-label="Choose another image"><RotateCcw className="size-4" /></button>
                   </div>
-
-                  <div className="flex min-h-[260px] flex-col justify-between rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+                  <div className="flex min-h-[260px] flex-col justify-between border border-[#60716a] bg-[#202b28] p-4">
                     <div>
-                      <div className="flex items-center gap-2 text-sky-400">
-                        <FileImage className="size-4" />
-                        <span className="font-mono text-xs font-semibold uppercase tracking-wider">File Selected</span>
-                      </div>
-                      <p className="mt-3 break-all font-mono text-xs text-slate-200">
-                        {selectedFile?.name}
-                      </p>
-
-                      {status === "processing" ? (
-                        <div aria-live="polite" className="mt-5 rounded-lg border border-sky-500/30 bg-sky-500/10 p-3 text-xs text-sky-200">
-                          <span className="flex items-center gap-2 font-mono font-semibold uppercase tracking-wider text-sky-400">
-                            <Loader2 className="size-3.5 animate-spin" /> Isolating subject
-                          </span>
-                          <p className="mt-1 text-[11px] text-slate-400">Computing edge gradients & alpha transparency mask...</p>
-                        </div>
-                      ) : (
-                        <p className="mt-4 text-xs text-slate-400 leading-relaxed">
-                          Ready to process. The engine will extract the subject and generate a clean alpha mask.
-                        </p>
-                      )}
+                      <FileImage className="size-5 text-[#ef745e]" />
+                      <p className="mt-6 break-all font-mono text-[10px] uppercase leading-5 tracking-[0.08em] text-[#f4f1e8]">{selectedFile?.name}</p>
+                      {status === "processing" ? <div aria-live="polite" className="mt-6 border-l-2 border-[#ef745e] pl-3 text-sm leading-6 text-[#d2ded8]"><span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] text-[#ef745e]"><Loader2 className="size-3 animate-spin" /> Cutting around edges</span><p className="mt-2">Hold tight. We’re separating figure from ground.</p></div> : <p className="mt-6 text-sm leading-6 text-[#b2c0b9]">Ready when you are. The output will retain a transparent background.</p>}
                     </div>
-
-                    <div className="mt-6 space-y-2">
-                      <button
-                        type="button"
-                        disabled={status === "processing"}
-                        onClick={removeBackground}
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 disabled:opacity-50 shadow-md shadow-sky-500/10"
-                      >
-                        {status === "processing" ? "Processing..." : "Remove Background"}
-                        <ArrowRight className="size-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        disabled={status === "processing"}
-                        onClick={reset}
-                        className="w-full text-center font-mono text-[11px] uppercase tracking-wider text-slate-400 hover:text-white transition disabled:opacity-40"
-                      >
-                        Cancel & Replace
-                      </button>
+                    <div className="mt-8">
+                      <button type="button" disabled={status === "processing"} onClick={removeBackground} className="flex w-full items-center justify-between bg-[#ef745e] px-3 py-3 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[#17201f] transition hover:bg-[#f4f1e8] disabled:opacity-60">{status === "processing" ? "In progress" : "Remove background"}<ArrowRight className="size-3" /></button>
+                      <button type="button" disabled={status === "processing"} onClick={reset} className="mt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-[#a7b5af] hover:text-[#ef745e] disabled:opacity-50">Replace file</button>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Success Result & Refinement Desk */}
               {status === "success" && resultUrl && previewUrl && (
-                <div id="output" className="mt-5 rounded-xl border border-slate-800 bg-[#090d16] p-4 sm:p-5">
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
-                    <div className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-emerald-400">
-                      <span className="grid size-5 place-items-center rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                        <Check className="size-3.5" />
-                      </span>
-                      <span>Cutout Complete</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={resetAppliedEdits}
-                        className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 font-mono text-xs text-slate-300 transition hover:border-slate-600 hover:text-white"
-                      >
-                        Reset Controls
-                      </button>
-                      <a
-                        href={resultUrl}
-                        download={downloadName}
-                        className="inline-flex items-center gap-2 rounded-lg bg-sky-500 px-3.5 py-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 shadow-md shadow-sky-500/10"
-                      >
-                        <ArrowDownRight className="size-3.5" /> Download PNG
-                      </a>
-                    </div>
+                <div id="output" className="mt-3 border border-[#60716a] p-3 sm:p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#60716a] pb-3">
+                    <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.11em] text-[#d8f0dd]"><span className="grid size-5 place-items-center bg-[#d8f0dd] text-[#17201f]"><Check className="size-3" /></span> Cutout complete / export desk</p>
+                    <div className="flex flex-wrap gap-2"><button type="button" onClick={resetAppliedEdits} className="border border-[#60716a] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-[#d2ded8] transition hover:border-[#ef745e] hover:text-[#ef745e]">Reset edits</button><a href={resultUrl} download={downloadName} className="inline-flex items-center gap-3 bg-[#f4f1e8] px-3 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[#17201f] transition hover:bg-[#ef745e]"><ArrowDownRight className="size-3" /> Download current</a></div>
                   </div>
-
-                  {/* Visual Comparison */}
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    <figure className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
-                      <figcaption className="border-b border-slate-800 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-slate-400">
-                        {previewUrl === baseResultUrl ? "Source Cutout" : "Original Image"}
-                      </figcaption>
-                      <div className="h-52 p-3 flex items-center justify-center">
-                        <img src={previewUrl} alt="Original upload or selected cutout" className="max-h-full max-w-full object-contain" />
-                      </div>
-                    </figure>
-
-                    <figure className="rounded-xl border border-sky-500/40 bg-slate-900/60 overflow-hidden shadow-lg shadow-sky-500/5">
-                      <figcaption className="border-b border-slate-800 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-sky-400">
-                        Export Preview (Alpha Result)
-                      </figcaption>
-                      <div
-                        className={`h-52 overflow-hidden p-3 flex items-center justify-center ${backgroundColor === "transparent" ? "checkerboard" : ""}`}
-                        style={{ backgroundColor: backgroundColor === "transparent" ? undefined : backgroundColor }}
-                      >
-                        <img
-                          src={resultUrl}
-                          alt="Background removed result"
-                          className="max-h-full max-w-full object-contain transition-transform duration-200"
-                          style={{
-                            transform: `scale(${cropZoom}) translate(${cropX / 5}px, ${cropY / 5}px)`,
-                            filter: shadowEnabled ? `drop-shadow(0 ${shadowOffsetY / 2}px ${shadowBlur / 3}px rgba(0, 0, 0, ${shadowOpacity / 100}))` : undefined,
-                          }}
-                        />
-                      </div>
-                    </figure>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <figure className="border border-[#60716a] bg-[#d8ded7]"><figcaption className="border-b border-[#60716a] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.11em] text-[#17201f]">{previewUrl === baseResultUrl ? "Source cutout" : "Before"}</figcaption><div className="h-48 p-3"><img src={previewUrl} alt="Original upload or selected cutout" className="size-full object-contain" /></div></figure>
+                    <figure className="border border-[#60716a]"><figcaption className="border-b border-[#60716a] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.11em] text-[#c7d4ce]">After / export preview</figcaption><div className={`h-48 overflow-hidden p-3 ${backgroundColor === "transparent" ? "checkerboard" : ""}`} style={{ backgroundColor: backgroundColor === "transparent" ? undefined : backgroundColor }}><img src={resultUrl} alt="Background removed result" className="size-full object-contain transition-transform duration-200" style={{ transform: `scale(${cropZoom}) translate(${cropX / 5}px, ${cropY / 5}px)`, filter: shadowEnabled ? `drop-shadow(0 ${shadowOffsetY / 2}px ${shadowBlur / 3}px rgba(17, 28, 27, ${shadowOpacity / 100}))` : undefined }} /></div></figure>
                   </div>
-
-                  {/* Refinement Controls */}
-                  <div className="mt-5 border-t border-slate-800 pt-4">
-                    <p className="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2 mb-4">
-                      <SlidersHorizontal className="size-3.5 text-sky-400" />
-                      <span>Fine-Tune & Custom Export</span>
-                    </p>
-
-                    <div className="grid gap-6 md:grid-cols-3">
-                      {/* Framing & Crop */}
-                      <div className="rounded-xl border border-slate-800 bg-[#101623] p-3.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300">Zoom & Pan</span>
-                          <button
-                            type="button"
-                            onClick={() => { setCropZoom(1); setCropX(0); setCropY(0); }}
-                            className="font-mono text-[10px] text-slate-400 hover:text-sky-400 transition"
-                          >
-                            Reset
-                          </button>
-                        </div>
-                        <label className="mt-3 block font-mono text-[10px] uppercase text-slate-400">
-                          Zoom: <span className="text-slate-200">{cropZoom.toFixed(2)}×</span>
-                          <input
-                            aria-label="Crop zoom"
-                            className="mt-1.5 block w-full accent-sky-400"
-                            type="range"
-                            min="1"
-                            max="1.8"
-                            step="0.01"
-                            value={cropZoom}
-                            onChange={event => setCropZoom(Number(event.target.value))}
-                          />
-                        </label>
-                        <div className="mt-3 grid grid-cols-2 gap-3">
-                          <label className="font-mono text-[10px] uppercase text-slate-400">
-                            Offset X: <span className="text-slate-200">{cropX}</span>
-                            <input
-                              aria-label="Crop horizontal position"
-                              className="mt-1 block w-full accent-sky-400"
-                              type="range"
-                              min="-100"
-                              max="100"
-                              value={cropX}
-                              onChange={event => setCropX(Number(event.target.value))}
-                            />
-                          </label>
-                          <label className="font-mono text-[10px] uppercase text-slate-400">
-                            Offset Y: <span className="text-slate-200">{cropY}</span>
-                            <input
-                              aria-label="Crop vertical position"
-                              className="mt-1 block w-full accent-sky-400"
-                              type="range"
-                              min="-100"
-                              max="100"
-                              value={cropY}
-                              onChange={event => setCropY(Number(event.target.value))}
-                            />
-                          </label>
-                        </div>
-                      </div>
-
-                      {/* Drop Shadow */}
-                      <div className="rounded-xl border border-slate-800 bg-[#101623] p-3.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300">Drop Shadow</span>
-                          <button
-                            type="button"
-                            onClick={() => setShadowEnabled(value => !value)}
-                            className={`rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider border transition ${
-                              shadowEnabled ? "border-sky-500 bg-sky-500/20 text-sky-400" : "border-slate-700 bg-slate-900 text-slate-400"
-                            }`}
-                          >
-                            {shadowEnabled ? "Enabled" : "Disabled"}
-                          </button>
-                        </div>
-                        <div className={`mt-3 space-y-2.5 transition-opacity ${shadowEnabled ? "opacity-100" : "pointer-events-none opacity-30"}`}>
-                          <label className="block font-mono text-[10px] uppercase text-slate-400">
-                            Opacity: <span className="text-slate-200">{shadowOpacity}%</span>
-                            <input
-                              aria-label="Shadow opacity"
-                              className="mt-1 block w-full accent-sky-400"
-                              type="range"
-                              min="0"
-                              max="100"
-                              value={shadowOpacity}
-                              onChange={event => setShadowOpacity(Number(event.target.value))}
-                            />
-                          </label>
-                          <div className="grid grid-cols-2 gap-3">
-                            <label className="font-mono text-[10px] uppercase text-slate-400">
-                              Blur: <span className="text-slate-200">{shadowBlur}px</span>
-                              <input
-                                aria-label="Shadow blur"
-                                className="mt-1 block w-full accent-sky-400"
-                                type="range"
-                                min="0"
-                                max="48"
-                                value={shadowBlur}
-                                onChange={event => setShadowBlur(Number(event.target.value))}
-                              />
-                            </label>
-                            <label className="font-mono text-[10px] uppercase text-slate-400">
-                              Offset Y: <span className="text-slate-200">{shadowOffsetY}px</span>
-                              <input
-                                aria-label="Shadow vertical offset"
-                                className="mt-1 block w-full accent-sky-400"
-                                type="range"
-                                min="-40"
-                                max="64"
-                                value={shadowOffsetY}
-                                onChange={event => setShadowOffsetY(Number(event.target.value))}
-                              />
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Background Color Matting */}
-                      <div className="rounded-xl border border-slate-800 bg-[#101623] p-3.5">
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300 block">
-                          Matte Background
-                        </span>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {BACKGROUND_PRESETS.map(preset => (
-                            <button
-                              key={preset.value}
-                              type="button"
-                              onClick={() => { setBackgroundColor(preset.value); setHexError(""); }}
-                              title={preset.label}
-                              aria-label={`${preset.label} background`}
-                              className={`grid size-7 place-items-center rounded-lg border transition ${
-                                backgroundColor === preset.value
-                                  ? "border-sky-400 ring-2 ring-sky-400/30"
-                                  : "border-slate-700 hover:border-slate-500"
-                              }`}
-                            >
-                              {preset.value === "transparent" ? (
-                                <span className="checkerboard size-4.5 rounded border border-slate-600" />
-                              ) : (
-                                <span className="size-4.5 rounded border border-black/20" style={{ backgroundColor: preset.swatch }} />
-                              )}
-                            </button>
-                          ))}
-                        </div>
-                        <div className="mt-3 flex gap-1.5">
-                          <label className="sr-only" htmlFor="custom-background-color">Custom Hex Color</label>
-                          <input
-                            id="custom-background-color"
-                            value={customHex}
-                            onChange={event => setCustomHex(event.target.value)}
-                            onKeyDown={event => { if (event.key === "Enter") applyCustomHex(); }}
-                            placeholder="#090d16"
-                            className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1 font-mono text-xs uppercase text-slate-200 outline-none focus:border-sky-400"
-                          />
-                          <button
-                            type="button"
-                            onClick={applyCustomHex}
-                            className="rounded-lg border border-slate-700 bg-slate-800 px-3 font-mono text-[10px] uppercase tracking-wider text-slate-200 hover:border-sky-500 hover:text-sky-400"
-                          >
-                            Set
-                          </button>
-                        </div>
-                        {hexError && <p className="mt-1.5 text-xs text-rose-400">{hexError}</p>}
-                      </div>
+                  <div className="mt-3 grid gap-3 border-t border-[#60716a] pt-3 lg:grid-cols-[1fr_1fr_auto]">
+                    <div>
+                      <div className="flex items-center justify-between"><p className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]"><SlidersHorizontal className="size-3 text-[#ef745e]" /> Frame crop</p><button type="button" onClick={() => { setCropZoom(1); setCropX(0); setCropY(0); }} className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#9fada7] hover:text-[#ef745e]">Reset crop</button></div>
+                      <label className="mt-3 block font-mono text-[9px] uppercase tracking-[0.1em] text-[#aebbb5]">Zoom {cropZoom.toFixed(2)}×<input aria-label="Crop zoom" className="mt-2 block w-full accent-[#ef745e]" type="range" min="1" max="1.8" step="0.01" value={cropZoom} onChange={event => setCropZoom(Number(event.target.value))} /></label>
+                      <div className="mt-3 grid grid-cols-2 gap-3"><label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#aebbb5]">X {cropX}<input aria-label="Crop horizontal position" className="mt-2 block w-full accent-[#ef745e]" type="range" min="-100" max="100" value={cropX} onChange={event => setCropX(Number(event.target.value))} /></label><label className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#aebbb5]">Y {cropY}<input aria-label="Crop vertical position" className="mt-2 block w-full accent-[#ef745e]" type="range" min="-100" max="100" value={cropY} onChange={event => setCropY(Number(event.target.value))} /></label></div>
                     </div>
-
-                    {/* Export Size & Format */}
-                    <div className="mt-4 grid gap-6 md:grid-cols-2">
-                      <div className="rounded-xl border border-slate-800 bg-[#101623] p-3.5">
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300 block mb-2.5">
-                          Output Canvas Preset
-                        </span>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                          {EXPORT_SIZE_PRESETS.map(preset => (
-                            <button
-                              key={preset.value}
-                              type="button"
-                              onClick={() => setExportSize(preset.value)}
-                              className={`rounded-lg border px-2.5 py-2 text-left transition ${
-                                exportSize === preset.value
-                                  ? "border-sky-500/80 bg-sky-500/10 text-white"
-                                  : "border-slate-800 bg-slate-900/50 text-slate-400 hover:border-slate-700 hover:text-slate-200"
-                              }`}
-                            >
-                              <span className="block font-mono text-[10px] font-semibold uppercase">{preset.label}</span>
-                              <span className="mt-0.5 block font-mono text-[9px] text-slate-400">{preset.detail}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="rounded-xl border border-slate-800 bg-[#101623] p-3.5">
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-slate-300 block mb-2.5">
-                          Export Encoding Format
-                        </span>
-                        <div className="grid grid-cols-3 gap-1.5">
-                          {EXPORT_FORMATS.map(format => (
-                            <button
-                              key={format.value}
-                              type="button"
-                              onClick={() => setExportFormat(format.value)}
-                              className={`rounded-lg border px-2.5 py-2 text-left transition ${
-                                exportFormat === format.value
-                                  ? "border-sky-500/80 bg-sky-500/10 text-white"
-                                  : "border-slate-800 bg-slate-900/50 text-slate-400 hover:border-slate-700 hover:text-slate-200"
-                              }`}
-                            >
-                              <span className="block font-mono text-[10px] font-semibold uppercase">{format.label}</span>
-                              <span className="mt-0.5 block font-mono text-[9px] text-slate-400">{format.detail}</span>
-                            </button>
-                          ))}
-                        </div>
-
-                        {exportFormat === "png" ? (
-                          <p className="mt-3 font-mono text-[10px] text-slate-400">
-                            PNG preserves transparent alpha lossless encoding.
-                          </p>
-                        ) : (
-                          <label className="mt-2.5 block font-mono text-[10px] uppercase text-slate-400">
-                            Quality: <span className="text-slate-200">{exportQuality}%</span>
-                            <input
-                              aria-label="Export quality"
-                              className="mt-1 block w-full accent-sky-400"
-                              type="range"
-                              min="40"
-                              max="100"
-                              value={exportQuality}
-                              onChange={event => setExportQuality(Number(event.target.value))}
-                            />
-                          </label>
-                        )}
-                      </div>
+                    <div>
+                      <div className="flex items-center justify-between"><p className="font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]">Drop shadow</p><button type="button" onClick={() => setShadowEnabled(value => !value)} className={`border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em] ${shadowEnabled ? "border-[#ef745e] bg-[#ef745e] text-[#17201f]" : "border-[#60716a] text-[#aebbb5]"}`}>{shadowEnabled ? "On" : "Off"}</button></div>
+                      <div className={`mt-3 grid grid-cols-3 gap-2 transition-opacity ${shadowEnabled ? "opacity-100" : "pointer-events-none opacity-35"}`}><label className="font-mono text-[9px] uppercase tracking-[0.08em] text-[#aebbb5]">Opacity {shadowOpacity}<input aria-label="Shadow opacity" className="mt-2 block w-full accent-[#ef745e]" type="range" min="0" max="100" value={shadowOpacity} onChange={event => setShadowOpacity(Number(event.target.value))} /></label><label className="font-mono text-[9px] uppercase tracking-[0.08em] text-[#aebbb5]">Blur {shadowBlur}<input aria-label="Shadow blur" className="mt-2 block w-full accent-[#ef745e]" type="range" min="0" max="48" value={shadowBlur} onChange={event => setShadowBlur(Number(event.target.value))} /></label><label className="font-mono text-[9px] uppercase tracking-[0.08em] text-[#aebbb5]">Y {shadowOffsetY}<input aria-label="Shadow vertical offset" className="mt-2 block w-full accent-[#ef745e]" type="range" min="-40" max="64" value={shadowOffsetY} onChange={event => setShadowOffsetY(Number(event.target.value))} /></label></div>
+                      <div className="mt-4 border-t border-[#60716a] pt-3"><p className="font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]">Solid background</p><div className="mt-2 flex flex-wrap gap-1.5">{BACKGROUND_PRESETS.map(preset => <button key={preset.value} type="button" onClick={() => { setBackgroundColor(preset.value); setHexError(""); }} title={preset.label} aria-label={`${preset.label} background`} className={`grid size-7 place-items-center border transition ${backgroundColor === preset.value ? "border-[#ef745e] ring-1 ring-[#ef745e]" : "border-[#60716a] hover:border-[#d2ded8]"}`}>{preset.value === "transparent" ? <span className="checkerboard size-4 border border-[#aebbb5]" /> : <span className="size-4 border border-black/15" style={{ backgroundColor: preset.swatch }} />}</button>)}</div><div className="mt-3 flex gap-1"><label className="sr-only" htmlFor="custom-background-color">Custom hex color</label><input id="custom-background-color" value={customHex} onChange={event => setCustomHex(event.target.value)} onKeyDown={event => { if (event.key === "Enter") applyCustomHex(); }} placeholder="#rrggbb" className="min-w-0 flex-1 border border-[#60716a] bg-[#17201f] px-2 py-1.5 font-mono text-[10px] uppercase text-[#f4f1e8] outline-none focus:border-[#ef745e]" /><button type="button" onClick={applyCustomHex} className="border border-[#ef745e] px-2 font-mono text-[9px] uppercase tracking-[0.08em] text-[#ef745e] hover:bg-[#ef745e] hover:text-[#17201f]">Set</button></div>{hexError && <p className="mt-2 text-xs text-[#ef9a8a]">{hexError}</p>}<p className="mt-2 font-mono text-[9px] uppercase tracking-[0.08em] text-[#9fada7]">{BACKGROUND_PRESETS.find(preset => preset.value === backgroundColor)?.label || "Custom hex"} export</p></div>
+                      <div className="mt-4 border-t border-[#60716a] pt-3"><p className="font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]">Export size</p><div className="mt-2 grid grid-cols-2 gap-1">{EXPORT_SIZE_PRESETS.map(preset => <button key={preset.value} type="button" onClick={() => setExportSize(preset.value)} className={`border px-2 py-1.5 text-left transition ${exportSize === preset.value ? "border-[#ef745e] bg-[#ef745e] text-[#17201f]" : "border-[#60716a] text-[#aebbb5] hover:border-[#d2ded8]"}`}><span className="block font-mono text-[9px] uppercase tracking-[0.07em]">{preset.label}</span><span className="mt-0.5 block font-mono text-[8px] opacity-75">{preset.detail}</span></button>)}</div></div>
+                      <div className="mt-4 border-t border-[#60716a] pt-3"><p className="font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]">Export size</p><div className="mt-2 grid grid-cols-2 gap-1">{EXPORT_SIZE_PRESETS.map(preset => <button key={preset.value} type="button" onClick={() => setExportSize(preset.value)} className={`border px-2 py-1.5 text-left transition ${exportSize === preset.value ? "border-[#ef745e] bg-[#ef745e] text-[#17201f]" : "border-[#60716a] text-[#aebbb5] hover:border-[#d2ded8]"}`}><span className="block font-mono text-[9px] uppercase tracking-[0.07em]">{preset.label}</span><span className="mt-0.5 block font-mono text-[8px] opacity-75">{preset.detail}</span></button>)}</div></div>
+                      <div className="mt-4 border-t border-[#60716a] pt-3"><p className="font-mono text-[9px] uppercase tracking-[0.11em] text-[#d2ded8]">File format</p><div className="mt-2 grid grid-cols-3 gap-1">{EXPORT_FORMATS.map(format => <button key={format.value} type="button" onClick={() => setExportFormat(format.value)} className={`border px-2 py-1.5 text-left transition ${exportFormat === format.value ? "border-[#ef745e] bg-[#ef745e] text-[#17201f]" : "border-[#60716a] text-[#aebbb5] hover:border-[#d2ded8]"}`}><span className="block font-mono text-[9px] uppercase tracking-[0.07em]">{format.label}</span><span className="mt-0.5 block font-mono text-[8px] opacity-75">{format.detail}</span></button>)}</div>{exportFormat === "png" ? <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.08em] text-[#9fada7]">PNG is lossless. Quality is not applied.</p> : <label className="mt-3 block font-mono text-[9px] uppercase tracking-[0.08em] text-[#aebbb5]">Quality {exportQuality}<input aria-label="Export quality" className="mt-2 block w-full accent-[#ef745e]" type="range" min="40" max="100" value={exportQuality} onChange={event => setExportQuality(Number(event.target.value))} /></label>}</div>
                     </div>
-
-                    {/* Action button */}
-                    <div className="mt-5 flex justify-end">
-                      <button
-                        type="button"
-                        onClick={applyRefinements}
-                        disabled={isRefining}
-                        className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-slate-950 transition hover:bg-sky-400 disabled:opacity-60 shadow-md shadow-sky-500/10"
-                      >
-                        {isRefining ? (
-                          <>
-                            <Loader2 className="size-3.5 animate-spin" />
-                            <span>Applying Adjustments...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>Save Refinements</span>
-                            <ArrowRight className="size-3.5" />
-                          </>
-                        )}
-                      </button>
-                    </div>
-
-                    {error && (
-                      <p className="mt-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-300" role="alert">
-                        {error}
-                      </p>
-                    )}
+                    <button type="button" onClick={applyRefinements} disabled={isRefining} className="self-end bg-[#ef745e] px-3 py-3 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-[#17201f] transition hover:bg-[#f4f1e8] disabled:opacity-60">{isRefining ? <span className="flex items-center gap-2"><Loader2 className="size-3 animate-spin" /> Applying</span> : "Apply & save"}</button>
                   </div>
+                  {error && <p className="mt-3 border-l-2 border-[#ef745e] pl-3 text-sm text-[#ef9a8a]" role="alert">{error}</p>}
                 </div>
               )}
             </div>
           </div>
         </section>
 
-        {/* Local History & Batch Export */}
-        <section className="border-b border-slate-800/80 bg-[#090d16] py-12">
-          <div className="container border-x border-slate-800/80">
-            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-800 pb-5">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-sky-400">
-                  Local Session History
-                </p>
-                <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  Recent Cutouts
-                </h2>
-              </div>
-              <div className="max-w-md">
-                <p className="font-mono text-[11px] leading-relaxed text-slate-400">
-                  Stored securely in your local browser cache for immediate retrieval. No cloud storage needed.
-                </p>
-                {history.length > 0 && (
-                  <div className="mt-3 flex flex-wrap items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={toggleAllBatchItems}
-                      className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-sky-400 transition"
-                    >
-                      {batchQueueIds.size === history.length ? "Deselect All" : "Select All"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={downloadBatch}
-                      disabled={!batchQueueIds.size || isBatchExporting}
-                      className="rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 font-mono text-xs font-semibold text-slate-200 transition disabled:opacity-40"
-                    >
-                      {isBatchExporting ? "Archiving ZIP..." : `Download Selected (${batchQueueIds.size})`}
-                    </button>
-                  </div>
-                )}
-                {batchMessage && (
-                  <p className="mt-2 font-mono text-xs text-sky-400" role="status">
-                    {batchMessage}
-                  </p>
-                )}
-              </div>
+        <section className="border-b border-[#17201f] bg-[#d9e9df]">
+          <div className="container border-x border-[#17201f] py-8 sm:py-10">
+            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#17201f] pb-4">
+              <div><p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#b33f29]">Processing history / local desk</p><h2 className="mt-2 text-3xl font-semibold tracking-[-0.06em]">Recent cutouts.</h2></div>
+              <div className="max-w-xs"><p className="font-mono text-[9px] uppercase leading-5 tracking-[0.1em] text-[#52605b]">Kept only in this browser so you can reopen a download without reprocessing.</p>{history.length > 0 && <div className="mt-3 flex flex-wrap items-center gap-2"><button type="button" onClick={toggleAllBatchItems} className="border-b border-[#17201f] pb-0.5 font-mono text-[9px] uppercase tracking-[0.1em] hover:border-[#e84d31] hover:text-[#e84d31]">{batchQueueIds.size === history.length ? "Clear queue" : "Select all"}</button><button type="button" onClick={downloadBatch} disabled={!batchQueueIds.size || isBatchExporting} className="bg-[#17201f] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-[#f4f1e8] transition hover:bg-[#e84d31] disabled:opacity-40">{isBatchExporting ? "Preparing ZIP" : `Download queue (${batchQueueIds.size})`}</button></div>}{batchMessage && <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.08em] text-[#52605b]" role="status">{batchMessage}</p>}</div>
             </div>
-
-            {history.length ? (
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {history.map((item, index) => (
-                  <article
-                    key={item.id}
-                    className={`relative flex items-center gap-3.5 rounded-xl border p-3.5 transition ${
-                      batchQueueIds.has(item.id)
-                        ? "border-sky-400/80 bg-sky-500/5 ring-1 ring-sky-400/30"
-                        : "border-slate-800 bg-[#101623] hover:border-slate-700"
-                    }`}
-                  >
-                    <label className="absolute right-3 top-3 flex items-center gap-1.5 font-mono text-[10px] uppercase text-slate-400 cursor-pointer">
-                      <input
-                        aria-label={`Select ${item.label} for batch download`}
-                        type="checkbox"
-                        checked={batchQueueIds.has(item.id)}
-                        onChange={() => toggleBatchItem(item.id)}
-                        className="accent-sky-400"
-                      />
-                      <span>Queue</span>
-                    </label>
-
-                    <div className="checkerboard grid size-16 shrink-0 place-items-center overflow-hidden rounded-lg border border-slate-800">
-                      <img src={item.url} alt="Processed transparent thumbnail" className="size-full object-contain p-1" />
-                    </div>
-
-                    <div className="min-w-0 flex-1 pr-10">
-                      <p className="font-mono text-[10px] uppercase tracking-wider text-sky-400">
-                        Asset #{String(index + 1).padStart(2, "0")}
-                      </p>
-
-                      {renamingHistoryId === item.id ? (
-                        <div className="mt-1 flex gap-1">
-                          <input
-                            aria-label="History entry label"
-                            className="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-0.5 text-xs text-white outline-none focus:border-sky-400"
-                            value={historyLabelDraft}
-                            onChange={event => setHistoryLabelDraft(event.target.value)}
-                            onKeyDown={event => {
-                              if (event.key === "Enter") saveRename(item.id);
-                              if (event.key === "Escape") setRenamingHistoryId(null);
-                            }}
-                            autoFocus
-                          />
-                          <button
-                            type="button"
-                            onClick={() => saveRename(item.id)}
-                            className="rounded bg-sky-500 px-2 font-mono text-[10px] font-semibold text-slate-950 hover:bg-sky-400"
-                          >
-                            Save
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="mt-1 flex items-center gap-2">
-                          <p className="min-w-0 truncate text-sm font-semibold text-white">
-                            {item.label}
-                          </p>
-                          <button
-                            type="button"
-                            onClick={() => startRename(item)}
-                            className="font-mono text-[10px] text-slate-400 hover:text-sky-400"
-                          >
-                            Edit
-                          </button>
-                        </div>
-                      )}
-
-                      <p className="mt-1 font-mono text-[10px] text-slate-400">
-                        {new Date(item.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                      </p>
-
-                      <div className="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px]">
-                        <a
-                          href={item.url}
-                          download={item.downloadName}
-                          className="inline-flex items-center gap-1 text-sky-400 hover:text-sky-300"
-                        >
-                          Download <ArrowDownRight className="size-3" />
-                        </a>
-                        <button
-                          type="button"
-                          onClick={() => duplicateWithNewBackground(item)}
-                          className="text-slate-400 hover:text-white transition"
-                        >
-                          Duplicate + Edit
-                        </button>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="mt-6 rounded-xl border border-dashed border-slate-800 p-8 text-center font-mono text-xs uppercase tracking-wider text-slate-400">
-                No past cutouts found in this session. Process an image above to populate local history.
-              </div>
-            )}
+            {history.length ? <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{history.map((item, index) => <article key={item.id} className={`relative flex min-h-28 items-center gap-3 border bg-[#f4f1e8] p-3 ${batchQueueIds.has(item.id) ? "border-[#e84d31] ring-1 ring-[#e84d31]" : "border-[#17201f]"}`}><label className="absolute right-2 top-2 flex items-center gap-1 font-mono text-[8px] uppercase tracking-[0.08em] text-[#63706b]"><input aria-label={`Add ${item.label} to batch export`} type="checkbox" checked={batchQueueIds.has(item.id)} onChange={() => toggleBatchItem(item.id)} className="accent-[#e84d31]" /> Queue</label><div className="checkerboard grid size-16 shrink-0 place-items-center overflow-hidden border border-[#17201f]"><img src={item.url} alt="Processed transparent thumbnail" className="size-full object-contain p-1" /></div><div className="min-w-0 flex-1 pr-8"><p className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#b33f29]">Cutout {String(index + 1).padStart(2, "0")}</p>{renamingHistoryId === item.id ? <div className="mt-2 flex gap-1"><input aria-label="History entry name" className="min-w-0 flex-1 border border-[#17201f] bg-white px-2 py-1 text-sm outline-none focus:border-[#e84d31]" value={historyLabelDraft} onChange={event => setHistoryLabelDraft(event.target.value)} onKeyDown={event => { if (event.key === "Enter") saveRename(item.id); if (event.key === "Escape") setRenamingHistoryId(null); }} autoFocus /><button type="button" onClick={() => saveRename(item.id)} className="bg-[#17201f] px-2 font-mono text-[9px] uppercase text-[#f4f1e8] hover:bg-[#e84d31]">Save</button></div> : <div className="mt-2 flex items-center gap-2"><p className="min-w-0 truncate text-sm font-semibold">{item.label}</p><button type="button" onClick={() => startRename(item)} className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#63706b] hover:text-[#e84d31]">Rename</button></div>}<p className="mt-1 font-mono text-[9px] uppercase tracking-[0.08em] text-[#63706b]">{new Date(item.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p><div className="mt-3 flex flex-wrap gap-x-3 gap-y-2"><a href={item.url} download={item.downloadName} className="inline-flex items-center gap-2 border-b border-[#17201f] pb-0.5 font-mono text-[9px] uppercase tracking-[0.1em] hover:border-[#e84d31] hover:text-[#e84d31]">Download <ArrowDownRight className="size-3" /></a><button type="button" onClick={() => duplicateWithNewBackground(item)} className="border-b border-[#17201f] pb-0.5 font-mono text-[9px] uppercase tracking-[0.1em] hover:border-[#e84d31] hover:text-[#e84d31]">Duplicate + color</button></div></div></article>)}</div> : <div className="mt-4 border border-dashed border-[#63706b] px-4 py-7 font-mono text-[10px] uppercase tracking-[0.1em] text-[#52605b]">No cutouts yet. Your completed PNGs will appear here on this device.</div>}
           </div>
         </section>
 
-        {/* Methodology / How It Works */}
-        <section id="how-it-works" className="container border-x border-slate-800/80 py-16 sm:py-20">
-          <div className="mb-10 grid gap-6 border-b border-slate-800 pb-8 lg:grid-cols-[1fr_0.6fr] lg:items-end">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-sky-400">
-                <span>Architecture</span>
-              </div>
-              <h2 className="mt-4 text-3xl sm:text-5xl font-bold text-white tracking-tight">
-                Deterministic separation.<br />
-                <span className="text-slate-400">Lossless export pipeline.</span>
-              </h2>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-400">
-              Engineered for production graphic designers, eCommerce merchants, and developers who need clean, dependable transparent PNGs with zero hassle.
-            </p>
+        <section id="how-it-works" className="container border-x border-[#17201f] py-14 sm:py-20">
+          <div className="mb-8 grid gap-6 border-b border-[#17201f] pb-6 lg:grid-cols-[1fr_0.62fr] lg:items-end">
+            <h2 className="font-display max-w-2xl text-4xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-6xl">Not magic.<br />Just a cleaner separation.</h2>
+            <p className="max-w-sm text-base leading-7 text-[#43504c]">Designed for people who have a use for the image on the other side: presentations, product shots, collages, mockups, whatever is next.</p>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid border-l border-[#17201f] sm:grid-cols-3">
             {[
-              {
-                step: "01",
-                title: "Upload & Ingest",
-                description: "Drop JPG, PNG, or WebP formats up to 8 MB. Files are ingested into a secure, volatile memory buffer without telemetry.",
-              },
-              {
-                step: "02",
-                title: "Neural Segmentation",
-                description: "Deep learning models compute high-resolution foreground probability masks, isolating complex fine details like hair.",
-              },
-              {
-                step: "03",
-                title: "Format & Download",
-                description: "Apply shadows, color mattes, framing transforms, and export lossless transparent PNG or optimized WebP assets.",
-              },
-            ].map(({ step, title, description }) => (
-              <article key={step} className="rounded-xl border border-slate-800 bg-[#101623] p-6 flex flex-col justify-between">
-                <div>
-                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-                    Step {step}
-                  </span>
-                  <h3 className="mt-6 text-xl font-bold text-white tracking-tight">
-                    {title}
-                  </h3>
-                  <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                    {description}
-                  </p>
-                </div>
+              ["01", "Send", "Drop the original. We accept JPG, PNG and WebP files up to 8 MB."],
+              ["02", "Separate", "The server isolates the subject and prepares alpha transparency."],
+              ["03", "Carry on", "Download the cutout as a clean PNG and use it wherever it needs to go."],
+            ].map(([step, title, copy]) => (
+              <article key={step} className="min-h-52 border-b border-r border-[#17201f] px-5 py-5 sm:border-b-0 sm:px-6 sm:py-7">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#e84d31]">{step}</p>
+                <h3 className="mt-10 text-2xl font-semibold tracking-[-0.055em]">{title}</h3>
+                <p className="mt-3 max-w-60 text-sm leading-6 text-[#52605b]">{copy}</p>
               </article>
             ))}
           </div>
