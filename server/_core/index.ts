@@ -1,4 +1,9 @@
 import "dotenv/config";
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = "development";
+}
+
 import express from "express";
 import { createServer } from "http";
 import net from "net";
