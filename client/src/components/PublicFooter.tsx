@@ -1,22 +1,54 @@
+import { Scissors } from "lucide-react";
+
 export function PublicFooter() {
   return (
-    <footer className="border-t border-[#17201f] bg-[#e84d31] text-[#17201f]">
-      <div className="container grid gap-7 border-x border-[#17201f] py-7 sm:grid-cols-[1fr_auto] sm:items-end">
-        <div>
-          <p className="text-xl font-bold tracking-[-0.055em]">clearcut</p>
-          <p className="mt-2 max-w-sm font-mono text-[9px] uppercase leading-5 tracking-[0.1em]">A direct utility for turning a selected subject into a clean, usable image asset.</p>
+    <footer className="border-t border-slate-800/80 bg-[#090d16] text-slate-400">
+      <div className="container py-10">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr] items-start pb-8 border-b border-slate-800/80">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <div className="grid size-7 place-items-center rounded-lg border border-slate-800 bg-slate-900 text-sky-400">
+                <Scissors className="size-3.5 rotate-[-45deg]" />
+              </div>
+              <span className="text-base font-bold text-white tracking-tight">
+                Clearcut <span className="font-semibold text-sky-400">Studio</span>
+              </span>
+            </div>
+            <p className="mt-3 max-w-sm text-xs leading-relaxed text-slate-400">
+              Autonomous, client-refined image background separation utility. Extract clean subjects and export lossless transparent PNGs directly in your browser.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-6 sm:justify-self-end font-mono text-xs">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Navigation</p>
+              <ul className="mt-2.5 space-y-2">
+                <li><a className="transition hover:text-sky-400" href="/#studio">Studio</a></li>
+                <li><a className="transition hover:text-sky-400" href="/#how-it-works">Method</a></li>
+                <li><a className="transition hover:text-sky-400" href="/about">About</a></li>
+                <li><a className="transition hover:text-sky-400" href="/contact">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Legal & Source</p>
+              <ul className="mt-2.5 space-y-2">
+                <li><a className="transition hover:text-sky-400" href="/privacy">Privacy Policy</a></li>
+                <li><a className="transition hover:text-sky-400" href="/terms">Terms of Service</a></li>
+                <li><a className="transition hover:text-sky-400" href="https://github.com/theneotic/clearcut" target="_blank" rel="noreferrer">GitHub Repository</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-2 font-mono text-[9px] uppercase tracking-[0.1em] sm:text-right">
-          <a className="hover:underline" href="/about">About</a>
-          <a className="hover:underline" href="/contact">Contact</a>
-          <a className="hover:underline" href="/privacy">Privacy</a>
-          <a className="hover:underline" href="/terms">Terms</a>
-        </div>
-        <div className="border-t border-[#17201f] pt-3 font-mono text-[9px] uppercase tracking-[0.1em] sm:col-span-2 sm:flex sm:justify-between">
+
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-slate-400">
           <p>© 2026 Clearcut. All rights reserved.</p>
-          <p className="mt-2 sm:mt-0">Support / contact page</p>
+          <div className="flex items-center gap-2">
+            <span className="size-2 rounded-full bg-emerald-400"></span>
+            <span>Zero telemetry tracking</span>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+

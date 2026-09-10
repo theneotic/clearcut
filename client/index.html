@@ -1,19 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Clearcut — Background Remover</title>
-    <meta name="description" content="Remove image backgrounds and download transparent PNGs in seconds." />
+    <title>Clearcut | AI Background Remover & Transparent PNG Studio</title>
+    <meta name="description" content="Isolate subjects, remove backgrounds, and export transparent PNGs in seconds with client-side refinement." />
+    <meta name="theme-color" content="#090d16" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Clearcut | AI Background Remover & Transparent PNG Studio" />
+    <meta property="og:description" content="Isolate subjects, remove backgrounds, and export transparent PNGs in seconds with client-side refinement." />
+    <meta property="og:image" content="/favicon.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Clearcut | AI Background Remover" />
+    <meta name="twitter:description" content="Precision image background removal and transparent asset studio." />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body>
+  <body class="bg-[#090d16] text-slate-100 min-h-screen antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script
